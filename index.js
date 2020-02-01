@@ -35,7 +35,7 @@ const Auth = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCh
 
 		// get tokens
 		const webClient = new WebClient(null);
-		return webClient.oauth.access({
+		return webClient.oauth.v2.access({
 		    client_id: clientId,
 		    client_secret: clientSecret,
 		    code: req.query.code,
