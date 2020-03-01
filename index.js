@@ -50,6 +50,10 @@ const Auth = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCh
 	return receiver;
 };
 
+expressApp.get('/direct_install', async(req, res) => {
+	res.redirect(`https://slack.com/oauth/authorize?client_id=${clientId}&scope=commands,chat:write:bot`);
+});
+
 module.exports = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError }) => {
 	return Auth({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError });
 };
