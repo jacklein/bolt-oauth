@@ -1,7 +1,7 @@
 const { ExpressReceiver } = require('@slack/bolt');
 const { WebClient } = require('@slack/web-api');
 
-const Auth = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError }) => {
+const Auth = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError, oAuthLink }) => {
 	// param checks
 	if (!clientId) { throw new Error('clientId is required.') };
 	if (!clientSecret) { throw new Error('clientSecret is required.') };
@@ -48,13 +48,13 @@ const Auth = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCh
 	});
 
 	expressApp.get('/direct_install', async(req, res) => {
-		res.redirect(`https://slack.com/oauth/authorize?client_id=${clientId}&scope=commands,chat:write:bot`);
+		res.redirect(oAuthLink);
 	});
 
 	return receiver;	
 };
 
 
-module.exports = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError }) => {
-	return Auth({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError });
+module.exports = ({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError, oAuthLink }) => {
+	return Auth({ app, clientId, clientSecret, signingSecret, redirectUrl, stateCheck, onSuccess, onError, oAuthLink });
 };
